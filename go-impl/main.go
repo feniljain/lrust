@@ -28,7 +28,9 @@ func (c *LRUCache) Get(key int) int {
 	return node.Data.Value
 }
 
-func (c *LRUCache) Put(pair dll.Pair) {
+// Returns nil if insert happens without popping
+// off any element, other returns that element
+func (c *LRUCache) Put(pair dll.Pair) *dll.Pair {
 
 	// If the key is already present in map
 	if node, present := c.m[pair.Key]; present {
@@ -39,11 +41,14 @@ func (c *LRUCache) Put(pair dll.Pair) {
 		c.m[pair.Key].Data = pair
 	}
 
+    var deletedElement *dll.Pair
+
 	// If list is full delete the last node
 	// of dll (and also from map)
 	if c.l.Size() == c.cap {
 		pair, _ := c.l.PopBack()
 		delete(c.m, pair.Key)
+        deletedElement = pair
 	}
 
 	// Create a new node and push it in the front
@@ -52,4 +57,6 @@ func (c *LRUCache) Put(pair dll.Pair) {
 	newNode := c.l.PushFront(pair)
 
 	c.m[pair.Key] = newNode
+
+    return deletedElement
 }

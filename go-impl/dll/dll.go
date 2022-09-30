@@ -118,8 +118,23 @@ func (dll *DoublyLinkedList) Remove(data Pair) (*Pair, bool) {
 			prevNode := currNode.Prev
 			nextNode := currNode.Next
 
-			// If head node matches
-			if currNode.Prev != nil {
+            // If head node matches
+            if prevNode == nil {
+                // If next node is nil, that means
+                // head node was the only node in whole
+                // list, so we should make tail and head as
+                // nil, but we don't do that here in `else`
+                // as that will be handled by nextNode == nil
+                // later in function
+                if nextNode != nil {
+                    nextNode.Prev = nil
+                } else {
+                    dll.head = nil
+                }
+            }
+
+            // If it's an element after head node
+			if prevNode != nil {
 				currNode.Prev.Next = nextNode
 			}
 
@@ -155,6 +170,10 @@ func (d *DoublyLinkedList) Tail() *Node {
 
 func (d *DoublyLinkedList) MoveNodeToFront(node *Node) error {
 
+    // if d.len == 1 {
+    //     return nil
+    // }
+
 	data, present := d.Remove(node.Data)
 	if !present {
 		return errors.NoNodeWithGivenData
@@ -165,6 +184,7 @@ func (d *DoublyLinkedList) MoveNodeToFront(node *Node) error {
 	return nil
 }
 
+// For debugging puposes
 func (d *DoublyLinkedList) PrintList() {
 	if d.head == nil {
 		fmt.Println("Empty list")

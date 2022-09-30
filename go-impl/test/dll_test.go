@@ -97,7 +97,7 @@ func TestPopBack(t *testing.T) {
 	// tryna replicate this type for now
 
 	// assert.Equal(t, nil, dllist1.Head(), "")
-	//assert.Equal(t, nil, dllist1.Tail(), "head != tail")
+	// assert.Equal(t, nil, dllist1.Tail(), "head != tail")
 }
 
 func TestBasicPopFront(t *testing.T) {
@@ -152,6 +152,24 @@ func TestBasicRemove(t *testing.T) {
 
 	assert.Equal(t, pair1, dllist.Head().Data, "wrong data at wrong place")
 	assert.Equal(t, pair3, dllist.Tail().Data, "wrong data at wrong place")
+}
+
+func TestRemoveOneElement(t *testing.T) {
+	dllist := dll.Init()
+
+    pair1 := dll.Pair {
+        Key: 1,
+        Value: 10,
+    }
+
+	dllist.PushFront(pair1)
+
+	dllist.Remove(pair1)
+
+	assert.Equal(t, 0, dllist.Size(), "incorrect size state")
+
+	assert.Equal(t, (*dll.Node)(nil), dllist.Head(), "wrong data at wrong place")
+	assert.Equal(t, (*dll.Node)(nil), dllist.Tail(), "wrong data at wrong place")
 }
 
 func TestMovedNodeToFront(t *testing.T) {

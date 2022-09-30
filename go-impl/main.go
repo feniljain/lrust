@@ -29,7 +29,7 @@ func (c *LRUCache) Get(key int) int {
 }
 
 // Returns nil if insert happens without popping
-// off any element, other returns that element
+// off any element, otherwise returns that element
 func (c *LRUCache) Put(pair dll.Pair) *dll.Pair {
 
 	// If the key is already present in map
@@ -39,6 +39,7 @@ func (c *LRUCache) Put(pair dll.Pair) *dll.Pair {
 
 		// Update the value in dll and map
 		c.m[pair.Key].Data = pair
+        return nil
 	}
 
     var deletedElement *dll.Pair
@@ -59,4 +60,25 @@ func (c *LRUCache) Put(pair dll.Pair) *dll.Pair {
 	c.m[pair.Key] = newNode
 
     return deletedElement
+}
+
+func (c *LRUCache) Remove(key int) (*dll.Pair, bool) {
+	node, present := c.m[key]
+	if !present {
+		return nil, false
+	}
+
+	delete(c.m, key)
+
+    return c.l.Remove(node.Data)
+}
+
+// For testing puposes
+func (c *LRUCache) GetFirstElement() *dll.Node {
+    return c.l.Head()
+}
+
+// For debugging puposes
+func (c *LRUCache) PrintList() {
+    c.l.PrintList()
 }

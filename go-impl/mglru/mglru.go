@@ -36,19 +36,14 @@ func Init(length, capacity int) MGLRUCache {
 }
 
 func (l *MGLRUCache) Get(key int) int {
+	// Promote received pair to the highest
+	// LRU, with of course the same details
+	// of operation as Put
 
 	l.MoveNodeToFront(key)
 
 	if lruIdx, present := l.keys[key]; present {
 		lru := l.lrus[lruIdx]
-
-		// TODO: Promote received pair from the below GET
-		// to highest LRU, with of course the same details
-		// of operation as PUT, but add an assert/check
-		// that at last we do not get any deleted element
-		// becuase here we are re-shuffling stuff
-		// - Also don't forget to remove the same from current
-		// LRU
 
 		// returning Value field of pair
 		return lru.Get(key)
@@ -57,21 +52,20 @@ func (l *MGLRUCache) Get(key int) int {
 }
 
 func (l *MGLRUCache) Put(pair dll.Pair) *dll.Pair {
-	if _, present := l.keys[pair.Key]; present {
-		// TODO: Instead of doing this, promote the key
-		// to the topmost position in youngest LRU
-		//
-		// This will require deleting key from the given LRU,
-		// then readjusting all the entries after that according
-		// to capacity of current LRU and LRUs to come after
-		//
-		// Next step is taking this deleted key and inserting
-		// it into top most ( youngest ) LRU at top most position
+	// Promote the key to the topmost
+	// position in youngest LRU
+	//
+	// This will require deleting key from the given LRU,
+	// then readjusting all the entries after that according
+	// to capacity of current LRU and LRUs to come after
+	//
+	// Next step is taking this deleted key and inserting
+	// it into top most ( youngest ) LRU at top most position
 
-		log.Println("Key already exists in LRU")
+	if _, present := l.keys[pair.Key]; present {
+		log.Println("Key ", pair.Key, " already exists in LRU")
 
 		pair := l.MoveNodeToFront(pair.Key)
-
 		return pair
 	}
 
@@ -103,7 +97,7 @@ func (l *MGLRUCache) InsertElement(pair dll.Pair) *dll.Pair {
 			break
 		}
 
-		l.keys[element.Key] = i+1
+		l.keys[element.Key] = i + 1
 
 		i++
 	}
@@ -113,7 +107,7 @@ func (l *MGLRUCache) InsertElement(pair dll.Pair) *dll.Pair {
 	l.keys[pair.Key] = 0
 
 	if element != emptyElement {
-		// log.Println("Evicted element: ", element)
+		log.Println("Evicted element: ", element)
 		delete(l.keys, element.Key)
 		return element
 	}
@@ -150,7 +144,7 @@ func (l *MGLRUCache) MoveNodeToFront(key int) *dll.Pair {
 
 // For testing puposes
 func (l *MGLRUCache) GetFirstElement() dll.Pair {
-    return l.lrus[0].GetFirstElement().Data
+	return l.lrus[0].GetFirstElement().Data
 }
 
 // For debugging puposes
@@ -165,7 +159,6 @@ func (l *MGLRUCache) PrintAllLRUs() {
 
 // For debugging puposes
 func (l *MGLRUCache) PrintState() {
-    log.Println("Map: ", l.keys)
-    l.PrintAllLRUs()
+	log.Println("Map: ", l.keys)
+	l.PrintAllLRUs()
 }
-

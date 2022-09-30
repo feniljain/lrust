@@ -37,19 +37,18 @@ func (c *LRUCache) Put(pair dll.Pair) *dll.Pair {
 		// Push it to the the front
 		c.l.MoveNodeToFront(node)
 
-		// Update the value in dll and map
 		c.m[pair.Key].Data = pair
-        return nil
+		return nil
 	}
 
-    var deletedElement *dll.Pair
+	var deletedElement *dll.Pair
 
-	// If list is full delete the last node
+	// If list is full, delete the last node
 	// of dll (and also from map)
 	if c.l.Size() == c.cap {
 		pair, _ := c.l.PopBack()
 		delete(c.m, pair.Key)
-        deletedElement = pair
+		deletedElement = pair
 	}
 
 	// Create a new node and push it in the front
@@ -59,7 +58,7 @@ func (c *LRUCache) Put(pair dll.Pair) *dll.Pair {
 
 	c.m[pair.Key] = newNode
 
-    return deletedElement
+	return deletedElement
 }
 
 func (c *LRUCache) Remove(key int) (*dll.Pair, bool) {
@@ -70,15 +69,15 @@ func (c *LRUCache) Remove(key int) (*dll.Pair, bool) {
 
 	delete(c.m, key)
 
-    return c.l.Remove(node.Data)
+	return c.l.Remove(node.Data)
 }
 
 // For testing puposes
 func (c *LRUCache) GetFirstElement() *dll.Node {
-    return c.l.Head()
+	return c.l.Head()
 }
 
 // For debugging puposes
 func (c *LRUCache) PrintList() {
-    c.l.PrintList()
+	c.l.PrintList()
 }

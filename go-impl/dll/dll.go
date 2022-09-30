@@ -7,8 +7,8 @@ import (
 
 // Representing data stored in DLL
 type Pair struct {
-    Key int
-    Value int
+	Key   int
+	Value int
 }
 
 // Representing a single node in DLL
@@ -18,7 +18,6 @@ type Node struct {
 	Prev *Node
 }
 
-// Doubly Linked List
 type DoublyLinkedList struct {
 	len  int
 	tail *Node
@@ -91,7 +90,7 @@ func (dll *DoublyLinkedList) PopBack() (*Pair, bool) {
 		return nil, false
 	}
 
-    nodeData := dll.tail.Data
+	nodeData := dll.tail.Data
 	dll.tail = dll.tail.Prev
 
 	// For the case where there is only one element in DLL
@@ -104,7 +103,7 @@ func (dll *DoublyLinkedList) PopBack() (*Pair, bool) {
 	}
 
 	dll.len--
-    return &nodeData, true
+	return &nodeData, true
 }
 
 func (dll *DoublyLinkedList) Remove(data Pair) (*Pair, bool) {
@@ -118,22 +117,22 @@ func (dll *DoublyLinkedList) Remove(data Pair) (*Pair, bool) {
 			prevNode := currNode.Prev
 			nextNode := currNode.Next
 
-            // If head node matches
-            if prevNode == nil {
-                // If next node is nil, that means
-                // head node was the only node in whole
-                // list, so we should make tail and head as
-                // nil, but we don't do that here in `else`
-                // as that will be handled by nextNode == nil
-                // later in function
-                if nextNode != nil {
-                    nextNode.Prev = nil
-                } else {
-                    dll.head = nil
-                }
-            }
+			// If head node matches
+			if prevNode == nil {
+				// If next node is nil, that means
+				// head node was the only node in whole
+				// list, so we should make tail and head as
+				// nil, but we don't do that here for tail
+				// in `else` as that will be handled by
+                // `nextNode == nil`, later in function
+				if nextNode != nil {
+					nextNode.Prev = nil
+				} else {
+					dll.head = nil
+				}
+			}
 
-            // If it's an element after head node
+			// If it's an element after head node
 			if prevNode != nil {
 				currNode.Prev.Next = nextNode
 			}
@@ -169,10 +168,6 @@ func (d *DoublyLinkedList) Tail() *Node {
 }
 
 func (d *DoublyLinkedList) MoveNodeToFront(node *Node) error {
-
-    // if d.len == 1 {
-    //     return nil
-    // }
 
 	data, present := d.Remove(node.Data)
 	if !present {

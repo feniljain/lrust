@@ -9,15 +9,15 @@ import (
 
 func TestBasicPushFront(t *testing.T) {
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
 	dllist := dll.Init()
 
@@ -31,15 +31,15 @@ func TestBasicPushFront(t *testing.T) {
 func TestBasicPushBack(t *testing.T) {
 	dllist := dll.Init()
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
 	dllist.PushBack(pair2)
 	assert.Equal(t, pair2, dllist.Head().Data, "wrong data at wrong place")
@@ -51,15 +51,15 @@ func TestBasicPushBack(t *testing.T) {
 func TestPopBack(t *testing.T) {
 	dllist := dll.Init()
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
 	dllist.PushBack(pair2)
 	dllist.PushBack(pair3)
@@ -103,15 +103,15 @@ func TestPopBack(t *testing.T) {
 func TestBasicPopFront(t *testing.T) {
 	dllist := dll.Init()
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
 	dllist.PushFront(pair3)
 	dllist.PushFront(pair2)
@@ -127,20 +127,20 @@ func TestBasicPopFront(t *testing.T) {
 func TestBasicRemove(t *testing.T) {
 	dllist := dll.Init()
 
-    pair1 := dll.Pair {
-        Key: 1,
-        Value: 10,
-    }
+	pair1 := dll.Pair{
+		Key:   1,
+		Value: 10,
+	}
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
 	dllist.PushBack(pair2)
 	dllist.PushBack(pair3)
@@ -157,10 +157,10 @@ func TestBasicRemove(t *testing.T) {
 func TestRemoveOneElement(t *testing.T) {
 	dllist := dll.Init()
 
-    pair1 := dll.Pair {
-        Key: 1,
-        Value: 10,
-    }
+	pair1 := dll.Pair{
+		Key:   1,
+		Value: 10,
+	}
 
 	dllist.PushFront(pair1)
 
@@ -175,20 +175,20 @@ func TestRemoveOneElement(t *testing.T) {
 func TestMovedNodeToFront(t *testing.T) {
 	dllist := dll.Init()
 
-    pair1 := dll.Pair {
-        Key: 1,
-        Value: 10,
-    }
+	pair1 := dll.Pair{
+		Key:   1,
+		Value: 10,
+	}
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
 	dllist.PushBack(pair1)
 	dllist.PushBack(pair2)
@@ -209,20 +209,20 @@ func TestMovedNodeToFront(t *testing.T) {
 func TestMiscCases1(t *testing.T) {
 	dllist := dll.Init()
 
-    pair2 := dll.Pair {
-        Key: 2,
-        Value: 20,
-    }
+	pair2 := dll.Pair{
+		Key:   2,
+		Value: 20,
+	}
 
-    pair3 := dll.Pair {
-        Key: 3,
-        Value: 30,
-    }
+	pair3 := dll.Pair{
+		Key:   3,
+		Value: 30,
+	}
 
-    pair4 := dll.Pair {
-        Key: 4,
-        Value: 40,
-    }
+	pair4 := dll.Pair{
+		Key:   4,
+		Value: 40,
+	}
 
 	dllist.PushFront(pair3)
 	assert.Equal(t, pair3, dllist.Head().Data, "wrong data at wrong place")

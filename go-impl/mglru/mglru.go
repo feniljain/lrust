@@ -40,7 +40,7 @@ func (l *MGLRUCache) Get(key int) int {
 	// LRU, with of course the same details
 	// of operation as Put
 
-	l.MoveNodeToFront(key)
+	l.moveNodeToFront(key)
 
 	if lruIdx, present := l.keys[key]; present {
 		lru := l.lrus[lruIdx]
@@ -65,14 +65,14 @@ func (l *MGLRUCache) Put(pair dll.Pair) *dll.Pair {
 	if _, present := l.keys[pair.Key]; present {
 		log.Println("Key ", pair.Key, " already exists in LRU")
 
-		pair := l.MoveNodeToFront(pair.Key)
+		pair := l.moveNodeToFront(pair.Key)
 		return pair
 	}
 
-	return l.InsertElement(pair)
+	return l.insertElement(pair)
 }
 
-func (l *MGLRUCache) InsertElement(pair dll.Pair) *dll.Pair {
+func (l *MGLRUCache) insertElement(pair dll.Pair) *dll.Pair {
 
 	// Make a loop over LRUs and check if current LRU
 	// is full, if it is not, pop the last item,
@@ -87,13 +87,6 @@ func (l *MGLRUCache) InsertElement(pair dll.Pair) *dll.Pair {
 	for i < l.length {
 		element = l.lrus[i].Put(*element)
 		if element == emptyElement {
-			// Making this empty because if we find an emptyElement
-			// which signifies that Put operation was successful
-			// without evicting any other elements in the current
-			// LRU, then we need to clear any previous values stored
-			// in this variable
-			element = emptyElement
-
 			break
 		}
 
@@ -115,7 +108,7 @@ func (l *MGLRUCache) InsertElement(pair dll.Pair) *dll.Pair {
 	return nil
 }
 
-func (l *MGLRUCache) MoveNodeToFront(key int) *dll.Pair {
+func (l *MGLRUCache) moveNodeToFront(key int) *dll.Pair {
 
 	// If key already exists in MGLRU, remove it from
 	// the holding cache and push it to front using
@@ -128,7 +121,7 @@ func (l *MGLRUCache) MoveNodeToFront(key int) *dll.Pair {
 	if lruIdx, present := l.keys[key]; present {
 		if deletedPair, present := l.lrus[lruIdx].Remove(key); present {
 
-			l.InsertElement(*deletedPair)
+			l.insertElement(*deletedPair)
 
 			l.keys[key] = 0
 

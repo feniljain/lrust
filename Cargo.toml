@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 arrayvec = "0.7.2"
+quickcheck = "1.0.3"
+quickcheck_macros = "1.0.0"

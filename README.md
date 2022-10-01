@@ -22,4 +22,4 @@ Get aways from LWN articles ( listed further down in the README ) for a general 
 ## Notes
 - For a bit more insight into decisions and why something is happening, you can browse golang code, as that was the playground for me ( GC langs make it easier to implement such stuff )
 - This is a purely experiemental library, if you see improvements which can be made, please do reach out!
-- If you try to run `cargo test`, and see some tests are failing, that maybe because of the `quickcheck` library. For some reason it fails when ran in bulk with other routes. But if you run same tests in isolation ( i.e. one by one ), they will pass.
+- If you try to run `cargo test`, and see some tests are failing, that maybe because of the `quickcheck` crate. For some reason it fails when ran in bulk with other tests. But if you run same tests in isolation ( i.e. one by one ), they will pass.

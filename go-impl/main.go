@@ -72,12 +72,12 @@ func (c *LRUCache) Remove(key int) (*dll.Pair, bool) {
 	return c.l.Remove(node.Data)
 }
 
-// For testing puposes
+// For testing purposes
 func (c *LRUCache) GetFirstElement() *dll.Node {
 	return c.l.Head()
 }
 
-// For debugging puposes
+// For debugging purposes
 func (c *LRUCache) PrintList() {
 	c.l.PrintList()
 }

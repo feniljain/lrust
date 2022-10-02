@@ -135,12 +135,12 @@ func (l *MGLRUCache) moveNodeToFront(key int) *dll.Pair {
 // I know I should have written unit tests instead of integration tests,
 // so that I don't have to expose all these details, but it's fine
 
-// For testing puposes
+// For testing purposes
 func (l *MGLRUCache) GetFirstElement() dll.Pair {
 	return l.lrus[0].GetFirstElement().Data
 }
 
-// For debugging puposes
+// For debugging purposes
 func (l *MGLRUCache) PrintAllLRUs() {
 	i := 0
 
@@ -150,7 +150,7 @@ func (l *MGLRUCache) PrintAllLRUs() {
 	}
 }
 
-// For debugging puposes
+// For debugging purposes
 func (l *MGLRUCache) PrintState() {
 	log.Println("Map: ", l.keys)
 	l.PrintAllLRUs()

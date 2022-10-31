@@ -1,0 +1,15 @@
+version = 1
+
+[[analyzers]]
+name = "rust"
+enabled = true
+
+  [analyzers.meta]
+  msrv = "stable"
+
+[[analyzers]]
+name = "go"
+enabled = true
+
+  [analyzers.meta]
+  import_root = "github.com/feniljain/lrust"
